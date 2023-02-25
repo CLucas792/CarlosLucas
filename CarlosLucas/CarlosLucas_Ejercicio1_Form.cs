@@ -12,7 +12,7 @@ namespace CarlosLucas
 
         private void Calcularbutton_Click(object sender, EventArgs e)
         {
-            //IntereseslistBox.Items.Add("1");
+
             CalcularIntereses();
         }
 

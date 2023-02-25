@@ -22,6 +22,27 @@ namespace CarlosLucas
 
         private async void Ingresarbutton_Click(object sender, EventArgs e)
         {
+            if (ArticulotextBox.Text == string.Empty)
+            {
+                errorProvider1.SetError(ArticulotextBox, "Ingrse la descripcion del articulo");
+                return;
+            }
+            errorProvider1.Clear();
+
+            if (PreciotextBox.Text == string.Empty)
+            {
+                errorProvider1.SetError(PreciotextBox, "Ingrese el precio del articulo");
+                return;
+            }
+            errorProvider1.Clear();
+
+            if (CantidadtextBox.Text == string.Empty)
+            {
+                errorProvider1.SetError(CantidadtextBox, "Ingrese la cantidad de articulo");
+                return;
+            }
+            errorProvider1.Clear();
+
             Subtotal += await SubtotalizarAsync(Convert.ToDouble(CantidadtextBox.Text), Convert.ToDouble(PreciotextBox.Text));
             Descuento = await DescuentoAsync(Subtotal);
             Total = Subtotal - Descuento;
@@ -70,6 +91,48 @@ namespace CarlosLucas
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void PreciotextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                errorProvider1.SetError(PreciotextBox, "Ingrese valores numericos");
+
+            }
+            else
+            {
+                e.Handled = false;
+                errorProvider1.Clear();
+
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void CantidadtextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                errorProvider1.SetError(CantidadtextBox, "Ingrese valores numericos");
+
+            }
+            else
+            {
+                e.Handled = false;
+                errorProvider1.Clear();
+
+            }
+
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
